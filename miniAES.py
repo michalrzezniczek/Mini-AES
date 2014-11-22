@@ -22,6 +22,6 @@ def add(matrix0, matrix1):
         k = 0
         output.append([])
         for j in matrix0[i]:
-            output[i].append(j + matrix1[i][k])
+            output[i].append(xor(j, matrix1[i][k]))
             k += 1
     return output
