@@ -135,3 +135,38 @@ def Fsbox(matrix, flag):
     else:
         return -1
     return output
+
+
+def keyGenerator(key0):
+    keys = []
+    key0InMatrix = toMatrix(key0, 4)
+    keys.append(key0InMatrix)
+    key1 = [[], [], [], []]
+    key2 = [[], [], [], []]
+    poly = [0, 0, 0, 1]
+    for i in range(4):
+        tmp = xor(poly[i], key0InMatrix[0][i])
+        tmp = xor(tmp, (SboxE[tuple(key0InMatrix[3])])[i])
+        key1[0].append(tmp)
+    for i in range(4):
+        key1[2].append(xor(key0InMatrix[2][i], key1[0][i]))
+    for i in range(4):
+        key1[1].append(xor(key0InMatrix[1][i], key1[2][i]))
+    for i in range(4):
+        key1[3].append(xor(key0InMatrix[3][i], key1[1][i]))
+    keys.append(key1)
+
+    poly = [0, 0, 1, 0]
+    for i in range(4):
+        tmp = xor(poly[i], key1[0][i])
+        tmp = xor(tmp, (SboxE[tuple(key1[3])])[i])
+        key2[0].append(tmp)
+    for i in range(4):
+        key2[2].append(xor(key1[2][i], key2[0][i]))
+    for i in range(4):
+        key2[1].append(xor(key1[1][i], key2[2][i]))
+    for i in range(4):
+        key2[3].append(xor(key1[3][i], key2[1][i]))
+    keys.append(key2)
+    
+    return keys
