@@ -182,3 +182,15 @@ def encrypt(key0, text):
     encrypted = ZK(encrypted)
     encrypted = add(keys[2], encrypted)
     return encrypted
+
+def decrypt(key0, encryptedText):
+    keys = keysGenerator(key0)
+    decrypted = add(keys[2], toMatrix(encryptedText, 4))
+    decrypted = ZK(decrypted)
+    decrypted = Fsbox(decrypted, 'D')
+    decrypted = add(keys[1], decrypted)
+    decrypted = MM(decrypted)
+    decrypted = ZK(decrypted)
+    decrypted = Fsbox(decrypted, 'D')
+    decrypted = add(keys[0], decrypted)
+    return decrypted
