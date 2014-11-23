@@ -25,3 +25,16 @@ def add(matrix0, matrix1):
             output[i].append(xor(j, matrix1[i][k]))
             k += 1
     return output
+
+
+def multiplyMatrixes(matrix0, matrix1):
+    for eee in range(int((sqrt(len(matrix0))))):
+        j = 0
+        sqrtOfLength = int(sqrt(len(matrix0)))
+        for ee in range(sqrtOfLength):
+            i = sqrt(len(matrix0)) * eee
+            for e in range(sqrtOfLength):
+                #sum += multiply(matrix0[i], matrix1[j])
+                i += 1
+                j += sqrtOfLength
+            j -= len(matrix0) - 1
