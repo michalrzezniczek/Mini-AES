@@ -137,7 +137,7 @@ def Fsbox(matrix, flag):
     return output
 
 
-def keyGenerator(key0):
+def keysGenerator(key0):
     keys = []
     key0InMatrix = toMatrix(key0, 4)
     keys.append(key0InMatrix)
@@ -170,3 +170,15 @@ def keyGenerator(key0):
     keys.append(key2)
     
     return keys
+
+def encrypt(key0, text):
+    keys = keysGenerator(key0)
+    encrypted = add(keys[0], toMatrix(text, 4))
+    encrypted = Fsbox(encrypted, 'E')
+    encrypted = ZK(encrypted)
+    encrypted = MM(encrypted)
+    encrypted = add(keys[1], encrypted)
+    encrypted = Fsbox(encrypted, 'E')
+    encrypted = ZK(encrypted)
+    encrypted = add(keys[2], encrypted)
+    return encrypted
