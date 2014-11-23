@@ -38,3 +38,29 @@ def multiplyMatrixes(matrix0, matrix1):
                 i += 1
                 j += sqrtOfLength
             j -= len(matrix0) - 1
+
+
+def multiply(bits0, bits1):
+    polynomialOfReduction = [1, 0, 0, 1, 1, 0, 0]
+    output = []
+    tmp = []
+    for i in range(4):
+        tmp.append([0, 0, 0, 0, 0, 0, 0])
+        for j, bit in enumerate(bits0):
+            if (bit != 0) and (bits1[i] != 0):
+                tmp[i][j+i] = bit * bits1[i]
+
+    for i in range(7):
+        sum = 0
+        for j in range(4):
+            sum += tmp[j][i]
+        output.append(sum % 2)
+
+    for i in range(3):
+        if output[i] != 0:
+            for k, bit in enumerate(output):
+                tmp2 = polynomialOfReduction[k - i]
+                output[k] = (bit + tmp2) % 2
+
+    del output[0:3]
+    return output
