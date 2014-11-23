@@ -1,3 +1,6 @@
+from operator import xor
+from math import sqrt
+
 __author__ = 'Michal Rzezniczek'
 
 
@@ -28,16 +31,25 @@ def add(matrix0, matrix1):
 
 
 def multiplyMatrixes(matrix0, matrix1):
+    output = [[], [], [], []]
+    k = 0
     for eee in range(int((sqrt(len(matrix0))))):
         j = 0
         sqrtOfLength = int(sqrt(len(matrix0)))
         for ee in range(sqrtOfLength):
-            i = sqrt(len(matrix0)) * eee
+            i = sqrtOfLength * eee
+            sum = []
             for e in range(sqrtOfLength):
-                #sum += multiply(matrix0[i], matrix1[j])
+#                multiply(matrix0[i], matrix1[j])
+                sum.append(multiply(matrix0[i], matrix1[j]))
                 i += 1
                 j += sqrtOfLength
+            for e in range(len(sum[0])):
+                output[k].append((sum[0][e] + sum[1][e]) % 2)
+            k += 1
             j -= len(matrix0) - 1
+
+    return output
 
 
 def multiply(bits0, bits1):
@@ -64,3 +76,9 @@ def multiply(bits0, bits1):
 
     del output[0:3]
     return output
+
+
+def ZK(matrix):
+    tmp = matrix.pop(2)
+    matrix.append(tmp)
+    return matrix
