@@ -82,3 +82,9 @@ def ZK(matrix):
     tmp = matrix.pop(2)
     matrix.append(tmp)
     return matrix
+
+
+def MM(matrix):
+    m = [[0, 0, 1, 1], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 1]]
+    output = multiplyMatrixes(m, matrix)
+    return output
